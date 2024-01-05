@@ -51,6 +51,13 @@ def l1_loss(args, scale=10.):
 
 
 def db_loss(args):
+    # 1. p -> predicted probability map (binary)
+    # 2. b_hat -> predicted binary map (thresh_binary)
+    # 3. gt_input -> ground truth, most probably keypoints (gt) 
+    # 4. mask_input -> ground truth, image mask (mask)
+    # 5. t -> predicted threshold map (thresh)
+    # 6. thresh_input -> ground truth threshold (thresh_map)
+    # 7. thresh_mask_input -> ground truth mask threshold (thresh_mask)
     binary, thresh_binary, gt, mask, thresh, thresh_map, thresh_mask = args
     l1_loss_ = l1_loss([thresh, thresh_map, thresh_mask])
     balanced_ce_loss_, dice_loss_weights = balanced_crossentropy_loss([binary, gt, mask])
