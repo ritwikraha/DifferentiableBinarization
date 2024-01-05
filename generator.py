@@ -192,6 +192,11 @@ def generate(data_dir, batch_size=16, image_size=640, min_text_size=8, shrink_ra
         b += 1
         current_idx += 1
         if b == batch_size:
+            # 1. batch_images -> batch of images from model.py (image_input)
+            # 2. batch_gts -> batch of ground truths from model.py (gt_input) -> gt in losses.py
+            # 3. batch_masks -> batch of masks from model.py (mask_input) -> mask in losses.py
+            # 4. batch_thresh_maps -> batch of threshold maps from model.py (thresh_input) -> thresh_map in losses.py
+            # 5. batch_thresh_masks -> batch of threshold masks from model.py (thresh_mask_input) -> thresh_mask in losses.py
             inputs = [batch_images, batch_gts, batch_masks, batch_thresh_maps, batch_thresh_masks]
             outputs = batch_loss
             yield inputs, outputs
